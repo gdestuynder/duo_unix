@@ -327,7 +327,7 @@ pam_sm_authenticate(pam_handle_t *pamh, int pam_flags,
 	/* Try Duo auth */
 	if ((duo = duo_open(cfg.apihost, cfg.ikey, cfg.skey,
                     "pam_duo/" PACKAGE_VERSION,
-                    cfg.noverify ? "" : cfg.cafile, DUO_NO_TIMEOUT)) == NULL) {
+                    cfg.noverify ? "" : cfg.cafile, DUO_NO_TIMEOUT, cfg.http_proxy)) == NULL) {
 		duo_log(LOG_ERR, "Couldn't open Duo API handle", pw->pw_name, host, NULL);
 		return (PAM_SERVICE_ERR);
 	}

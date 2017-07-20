@@ -183,16 +183,11 @@ do_auth(struct login_ctx *ctx, const char *cmd)
         }
     }
 
-    /* Honor configured http_proxy */
-    if (cfg.http_proxy != NULL) {
-        setenv("http_proxy", cfg.http_proxy, 1);
-    }
-
     /* Try Duo auth. */
     if ((duo = duo_open(cfg.apihost, cfg.ikey, cfg.skey,
                     "login_duo/" PACKAGE_VERSION,
                     cfg.noverify ? "" : cfg.cafile,
-                    cfg.https_timeout)) == NULL) {
+                    cfg.https_timeout, cfg.http_proxy)) == NULL) {
         duo_log(LOG_ERR, "Couldn't open Duo API handle",
             pw->pw_name, host, NULL);
         return (EXIT_FAILURE);

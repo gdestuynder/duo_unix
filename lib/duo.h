@@ -37,7 +37,8 @@ int	    duo_parse_config(const char *filename,
 
 /* Open Duo API handle */
 duo_t	   *duo_open(const char *host, const char *ikey, const char *skey,
-                     const char *progname, const char *cafile, int https_timeout);
+                     const char *progname, const char *cafile,
+                     int https_timeout, const char *http_proxy);
 
 /* Override conversation prompt/status functions */
 void	    duo_set_conv_funcs(duo_t *d,

@@ -20,7 +20,8 @@ typedef enum {
 
 /* Initialize HTTPS library */
 HTTPScode   https_init(const char *ikey, const char *skey,
-                       const char *useragent, const char *cafile);
+                       const char *useragent, const char *cafile,
+                       const char *http_proxy);
 
 /* Open HTTPS connection to host[:port] */
 HTTPScode   https_open(https_t **hp, const char *host);

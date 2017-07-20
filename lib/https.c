@@ -351,7 +351,8 @@ _establish_connection(struct https_request * const req,
 
 HTTPScode
 https_init(const char *ikey, const char *skey,
-    const char *useragent, const char *cafile)
+    const char *useragent, const char *cafile,
+    const char *http_proxy)
 {
         X509_STORE *store;
         X509 *cert;
@@ -417,8 +418,10 @@ https_init(const char *ikey, const char *skey,
                 }
                 SSL_CTX_set_verify(ctx->ssl_ctx, SSL_VERIFY_PEER, NULL);
         }
-        /* Save our proxy config if any */
-        if ((p = getenv("http_proxy")) != NULL) {
+        /* Setup our proxy config if any */
+        if (http_proxy != NULL) {
+                p = strdup(http_proxy);
+
                 if (strstr(p, "://") != NULL) {
                         if (strncmp(p, "http://", 7) != 0) {
                                 ctx->errstr = "http_proxy must be HTTP";
@@ -426,7 +429,6 @@ https_init(const char *ikey, const char *skey,
                         }
                         p += 7;
                 }
-                p = strdup(p);
                 
                 if ((ctx->proxy = strchr(p, '@')) != NULL) {
                         *ctx->proxy++ = '\0';
