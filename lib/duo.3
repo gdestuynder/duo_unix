@@ -11,7 +11,7 @@
 .Sh SYNOPSIS
 .Fd #include <duo.h>
 .Ft duo_t *
-.Fn duo_open "const char *ikey" "const char *skey" "const char *progname" "const char *cafile"
+.Fn duo_open "const char *ikey" "const char *skey" "const char *progname" "const char *cafile" "const char *http_proxy"
 .Ft void
 .Fn duo_set_conv_funcs "duo_t *d" "char *(*conv_prompt)(void *conv_arg, const char *, char *, size_t)" "void (*conv_status)(void *conv_arg, const char *msg)" "void *conv_arg"
 .Ft void
@@ -42,6 +42,10 @@ identifies the program to the Duo service.
 should be 
 .Li NULL
 or the pathname of a PEM-format CA certificate to override the default.
+.Fa http_proxy
+should be
+.Li NULL
+or URL to the desired HTTP proxy.
 .Pp
 .Fn duo_set_conv_funcs
 may be used to override the internal user conversation functions.
