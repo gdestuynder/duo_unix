@@ -443,6 +443,7 @@ https_init(const char *ikey, const char *skey,
                 } else {
                         ctx->proxy_port = "80";
                 }
+		free(p);
         }
         /* Set HTTP parser callbacks */
         ctx->parse_settings.on_body = __on_body;
